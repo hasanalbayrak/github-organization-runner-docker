@@ -1,0 +1,32 @@
+services:
+  runner:
+    image: myoung34/github-runner:latest
+    restart: always
+    env_file:
+      - .env
+    environment:
+      # Runner Scope: 'org' for Organization, 'repo' for single Repository
+      RUNNER_SCOPE: "org"
+
+      # Change this to your Organization Name
+      ORG_NAME: "YOUR_ORG_NAME"
+
+      # Runner Name in GitHub Settings
+      RUNNER_NAME: "my-docker-runner"
+
+      # Labels to usage in workflows (runs-on: [self-hosted, docker])
+      RUNNER_LABELS: "self-hosted,linux,x64,docker"
+
+      # Keep the container running after job finishes
+      EPHEMERAL: "false"
+
+      # Disable auto-update to prevent restarts during jobs
+      DISABLE_AUTO_UPDATE: "false"
+
+    volumes:
+      # Docker-out-of-Docker (DooD) socket binding
+      # Allows the runner to spawn sibling containers using the host's Docker daemon
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # Persist runner workspace (optional)
+      - ./_work:/_work
