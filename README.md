@@ -70,3 +70,7 @@ jobs:
 ## Security Note
 
 **Important:** Do not commit the ```.env``` file to version control. It contains sensitive authentication tokens. The ```.gitignore``` file included in this repository is configured to exclude it automatically.
+
+## License
+
+This project is licensed under the MIT License.
